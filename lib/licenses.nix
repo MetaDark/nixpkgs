@@ -628,6 +628,12 @@ lib.mapAttrs (n: v: v // { shortName = n; }) rec {
     fullName = "Ruby License";
   };
 
+  runescape = {
+    fullName = "RuneScape EULA";
+    url = http://content.runescape.com/downloads/LICENCE.txt;
+    free = false;
+  };
+
   sendmail = spdx {
     spdxId = "Sendmail";
     fullName = "Sendmail License";

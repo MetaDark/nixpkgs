@@ -22321,6 +22321,8 @@ in
 
   rrootage = callPackage ../games/rrootage { };
 
+  runescape-launcher = callPackage ../games/runescape-launcher { };
+
   saga = callPackage ../applications/gis/saga {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
   };
