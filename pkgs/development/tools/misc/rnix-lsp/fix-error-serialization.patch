@@ -1,0 +1,14 @@
+diff --git a/src/models.rs b/src/models.rs
+index 0fc297f..76c1917 100644
+--- a/src/models.rs
++++ b/src/models.rs
+@@ -15,7 +15,9 @@ pub struct Request {
+ pub struct Response<T> {
+     pub jsonrpc: &'static str,
+     pub id: Option<usize>,
++    #[serde(skip_serializing_if = "Option::is_none")]
+     pub result: Option<T>,
++    #[serde(skip_serializing_if = "Option::is_none")]
+     pub error: Option<ResponseError>
+ }
+ #[derive(Clone, Debug, Serialize)]

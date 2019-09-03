@@ -10014,6 +10014,8 @@ in
 
   rman = callPackage ../development/tools/misc/rman { };
 
+  rnix-lsp = callPackage ../development/tools/misc/rnix-lsp { };
+
   rolespec = callPackage ../development/tools/misc/rolespec { };
 
   rr = callPackage ../development/tools/analysis/rr { };
