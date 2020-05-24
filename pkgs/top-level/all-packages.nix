@@ -7174,6 +7174,8 @@ in
 
   philter = callPackage ../tools/networking/philter { };
 
+  phoc = callPackage ../applications/misc/phoc { };
+
   phodav = callPackage ../tools/networking/phodav { };
 
   pim6sd = callPackage ../servers/pim6sd { };
