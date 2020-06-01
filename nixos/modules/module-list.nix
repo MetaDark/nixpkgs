@@ -157,6 +157,7 @@
   ./programs/oblogout.nix
   ./programs/plotinus.nix
   ./programs/proxychains.nix
+  ./programs/phosh-ui.nix
   ./programs/qt5ct.nix
   ./programs/screen.nix
   ./programs/sedutil.nix
