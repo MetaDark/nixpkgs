@@ -1,18 +1,22 @@
-{ stdenv
+{ lib
+, stdenv
 , pkgs
 , fetchFromGitLab
 , substituteAll
 , meson
 , ninja
 , pkg-config
+, python3
 , wrapGAppsHook
 , libhandy
+, libxkbcommon
 , pulseaudio
 , glib
 , gtk3
 , gnome3
 , gcr
 , pam
+, systemd
 , upower
 , wayland
 , dbus
@@ -39,14 +43,14 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "phosh";
-  version = "0.3.0";
+  version = "0.8.0";
 
   src = fetchFromGitLab {
     domain = "source.puri.sm";
     owner = "Librem5";
     repo = pname;
     rev = "v${version}";
-    sha256 = "07fw1310y5r3kgcry6ac1j2p4v2lkjy3pwxw2hkaqf67whnsh95i";
+    sha256 = "sha256-28F9Fyn6UvfgIVbHT9QZFqiSxAlH3GMM4/0vVEDzc54=";
   };
 
   patches = [
@@ -60,6 +64,7 @@ in stdenv.mkDerivation rec {
     meson
     ninja
     pkg-config
+    python3
     wrapGAppsHook
   ];
 
@@ -67,6 +72,7 @@ in stdenv.mkDerivation rec {
     phoc
     libhandy
     libsecret
+    libxkbcommon
     pulseaudio
     glib
     gcr
@@ -77,6 +83,7 @@ in stdenv.mkDerivation rec {
     gnome3.gnome-session
     gtk3
     pam
+    systemd
     upower
     wayland
     feedbackd
@@ -103,8 +110,9 @@ in stdenv.mkDerivation rec {
     runHook postCheck
   '';
 
-  postInstall = ''
-    ${glib.dev}/bin/glib-compile-schemas $out/share/glib-2.0/schemas
+  postPatch = ''
+    chmod +x build-aux/post_install.py
+    patchShebangs build-aux/post_install.py
   '';
 
   postFixup = ''
@@ -120,7 +128,7 @@ in stdenv.mkDerivation rec {
     ];
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A pure Wayland shell prototype for GNOME on mobile devices";
     homepage = "https://source.puri.sm/Librem5/phosh";
     license = licenses.gpl3Plus;
