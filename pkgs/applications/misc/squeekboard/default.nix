@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , pkgs
 , fetchFromGitLab
 , cmake
@@ -18,28 +19,20 @@
 , makeWrapper
 , substituteAll
 , fetchpatch
+, feedbackd
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "squeekboard";
-  version = "1.9.2";
+  version = "1.12.0";
 
   src = fetchFromGitLab {
     domain = "source.puri.sm";
     owner = "Librem5";
     repo = pname;
     rev = "v${version}";
-    sha256 = "02jjc9qxzb4iw3vypqdaxzs5mc66zkfmij1yrv72h99acg5s3ncz";
+    sha256 = "sha256-1iQqu2pnEsSVqPYTpeC8r/BDHDTlQGYiU5xwiLlzQXQ=";
   };
-
-  patches = [
-    # Add missing dependency 'gio-unix-2.0' to meson.build.
-    # https://source.puri.sm/Librem5/squeekboard/-/merge_requests/356
-    (fetchpatch {
-      url = "https://source.puri.sm/Librem5/squeekboard/-/merge_requests/356.patch";
-      sha256 = "1xi7h2nsrlf7szlj41kj6x1503af9svk5yj19l0q32ln3c40kgfs";
-    })
-  ];
 
   nativeBuildInputs = [
     meson
@@ -59,9 +52,14 @@ rustPlatform.buildRustPackage rec {
     wayland-protocols
     libxml2
     libxkbcommon
+    feedbackd
   ];
 
   cargoSha256 = "00gzw703w16i81yna4winj7gi4w7a1p986ggnx48jvyi0c14mxx0";
+
+  preUnpack = ''
+    cat Cargo.toml.in Cargo.deps > Cargo.toml
+  '';
 
   # Don't use buildRustPackage phases, only use it for rust deps setup
   configurePhase = null;
@@ -69,7 +67,7 @@ rustPlatform.buildRustPackage rec {
   checkPhase = null;
   installPhase = null;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Squeekboard is a virtual keyboard supporting Wayland";
     homepage = "https://source.puri.sm/Librem5/squeekboard";
     license = licenses.gpl3Plus;
