@@ -1,8 +1,10 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitLab
 , meson
 , ninja
 , pkg-config
+, python3
 , wrapGAppsHook
 , libinput
 , gnome3
@@ -18,20 +20,21 @@
 
 stdenv.mkDerivation rec {
   pname = "phoc";
-  version = "0.1.8";
+  version = "0.6.0";
 
   src = fetchFromGitLab {
     domain = "source.puri.sm";
     owner = "Librem5";
     repo = pname;
     rev = "v${version}";
-    sha256 = "135bpfxgpizfvhdgyl1n3b1b2gpddb8i7s2lmzfijiaa3gz8bdnq";
+    sha256 = "sha256-khIBWTmXntPML+YckHvGMhSXhjocXHL0hg4WqOrQvR4=";
   };
 
   nativeBuildInputs = [
     meson
     ninja
     pkg-config
+    python3
     wrapGAppsHook
   ];
 
@@ -50,11 +53,12 @@ stdenv.mkDerivation rec {
 
   mesonFlags = ["-Dembed-wlroots=disabled"];
 
-  postInstall = ''
-    ${glib.dev}/bin/glib-compile-schemas $out/share/glib-2.0/schemas
+  postPatch = ''
+    chmod +x build-aux/post_install.py
+    patchShebangs build-aux/post_install.py
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Wayland compositor for mobile phones like the Librem 5";
     homepage = "https://source.puri.sm/Librem5/phoc";
     license = licenses.gpl3Plus;
