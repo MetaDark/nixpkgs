@@ -183,7 +183,7 @@
  */
 
 let
-  inherit (stdenv) isCygwin isDarwin isFreeBSD isLinux isAarch64;
+  inherit (stdenv) isCygwin isDarwin isFreeBSD isLinux isAarch32 isAarch64;
   inherit (lib) optional optionals optionalString enableFeature;
 in
 
@@ -365,7 +365,7 @@ stdenv.mkDerivation rec {
     (enableFeature (libiconv != null) "iconv")
     (enableFeature (libjack2 != null) "libjack")
     #(enableFeature (if isLinux then libiec61883 != null && libavc1394 != null && libraw1394 != null else false) "libiec61883")
-    (enableFeature (if isLinux && !isAarch64 then libmfx != null else false) "libmfx")
+    (enableFeature (if isLinux && !isAarch32 && !isAarch64 then libmfx != null else false) "libmfx")
     (enableFeature (libmodplug != null) "libmodplug")
     (enableFeature (libmysofa != null) "libmysofa")
     #(enableFeature (libnut != null) "libnut")
@@ -378,7 +378,7 @@ stdenv.mkDerivation rec {
     (enableFeature ((isLinux || isFreeBSD) && libva != null) "vaapi")
     (enableFeature (libvdpau != null) "vdpau")
     (enableFeature (libvorbis != null) "libvorbis")
-    (enableFeature (!isAarch64 && libvmaf != null && version3Licensing) "libvmaf")
+    (enableFeature (!isAarch32 && !isAarch64 && libvmaf != null && version3Licensing) "libvmaf")
     (enableFeature (libvpx != null) "libvpx")
     (enableFeature (libwebp != null) "libwebp")
     (enableFeature (libX11 != null && libXv != null && libXext != null) "xlib")
@@ -442,9 +442,9 @@ stdenv.mkDerivation rec {
   ] ++ optionals openglExtlib [ libGL libGLU ]
     ++ optionals nonfreeLicensing [ fdk_aac openssl ]
     ++ optional ((isLinux || isFreeBSD) && libva != null) libva
-    ++ optional (!isAarch64 && libvmaf != null && version3Licensing) libvmaf
+    ++ optional (!isAarch32 && !isAarch64 && libvmaf != null && version3Licensing) libvmaf
     ++ optionals isLinux [ alsaLib libraw1394 libv4l ]
-    ++ optional (isLinux && !isAarch64 && libmfx != null) libmfx
+    ++ optional (isLinux && !isAarch32 && !isAarch64 && libmfx != null) libmfx
     ++ optional nvenc nv-codec-headers
     ++ optionals stdenv.isDarwin [ Cocoa CoreServices CoreAudio AVFoundation
                                    MediaToolbox VideoDecodeAcceleration
