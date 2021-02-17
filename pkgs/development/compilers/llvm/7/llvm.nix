@@ -163,7 +163,7 @@ in stdenv.mkDerivation ({
     '') versionSuffixes}
   '';
 
-  doCheck = stdenv.isLinux && (!stdenv.isx86_32);
+  doCheck = stdenv.isLinux && (!stdenv.isx86_32) && (!stdenv.isAarch32);
 
   checkTarget = "check-all";
 
