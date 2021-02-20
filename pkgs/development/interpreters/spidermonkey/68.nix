@@ -35,6 +35,13 @@ in stdenv.mkDerivation rec {
     icu
   ];
 
+  patches = [
+    # This is the same patch that Debian uses to fix aarch32 builds
+    # - https://bugzilla.mozilla.org/show_bug.cgi?id=1526653
+    # - https://salsa.debian.org/mozilla-team/firefox/commit/fd6847c9416f9eebde636e21d794d25d1be8791d
+    ./fix-aarch32-ffx67.patch
+  ];
+
   preConfigure = ''
     export CXXFLAGS="-fpermissive"
     export LIBXUL_DIST=$out

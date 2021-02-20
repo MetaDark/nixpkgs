@@ -128,6 +128,11 @@ buildStdenv.mkDerivation ({
 
   patches = [
     ./env_var_for_system_dir.patch
+
+    # This is the same patch that Debian uses to fix aarch32 builds
+    # - https://bugzilla.mozilla.org/show_bug.cgi?id=1526653
+    # - https://salsa.debian.org/mozilla-team/firefox/commit/fd6847c9416f9eebde636e21d794d25d1be8791d
+    ../../../../development/interpreters/spidermonkey/fix-aarch32-ffx67.patch
   ] ++
   lib.optional (lib.versionOlder ffversion "83") ./no-buildconfig-ffx76.patch ++
   lib.optional (lib.versionAtLeast ffversion "84") ./no-buildconfig-ffx84.patch ++
