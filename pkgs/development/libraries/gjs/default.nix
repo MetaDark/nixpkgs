@@ -76,7 +76,7 @@ in stdenv.mkDerivation rec {
     ./installed-tests-path.patch
   ];
 
-  doCheck = true;
+  doCheck = !stdenv.isAarch32; # gjs:C / API tests TIMEOUT 30.08s
 
   postPatch = ''
     patchShebangs build/choose-tests-locale.sh
