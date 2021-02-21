@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
     # CPU detection isn't supported on Darwin and breaks the aarch64-darwin build:
     "-DCONFIG_RUNTIME_CPU_DETECT=0"
-  ];
+  ] ++ lib.optional stdenv.isAarch32 "-DCMAKE_C_FLAGS=-mfpu=neon"; # is this bad? related: https://github.com/kcat/openal-soft/issues/54
 
   postFixup = ''
     moveToOutput lib/libaom.a "$static"
