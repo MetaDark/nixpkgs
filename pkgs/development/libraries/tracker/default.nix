@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     "-Ddocs=true"
   ];
 
-  doCheck = true;
+  doCheck = !stdenv.isAarch32; # tracker:data / service TIMEOUT 30.06s
 
   postPatch = ''
     patchShebangs utils/g-ir-merge/g-ir-merge
