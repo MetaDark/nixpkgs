@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch }:
 
 let
   version = "2.9.4";
@@ -14,7 +14,15 @@ in stdenv.mkDerivation {
   };
 
   NIX_CFLAGS_COMPILE = "-Wno-error";
-  patches = [ ./build-shared.patch ];
+  patches = [
+    ./build-shared.patch
+    # Fix arvm7l: Assertion `sizeof(http_parser) == 4 + 4 + 8 + 2 + 2 + 4 + sizeof(void *)' failed
+    # This patch is in master, remove it in the next release
+    (fetchpatch {
+      url = "https://github.com/nodejs/http-parser/commit/4f15b7d510dc7c6361a26a7c6d2f7c3a17f8d878.patch";
+      sha256 = "0km10c8qyccyg3zrk1axgamm7v3bj4b7bnkq9rgmvp9hx8jlr5md";
+    })
+  ];
   makeFlags = [ "DESTDIR=" "PREFIX=$(out)" ];
   buildFlags = [ "library" ];
   doCheck = true;
