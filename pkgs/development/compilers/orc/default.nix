@@ -25,7 +25,7 @@ in stdenv.mkDerivation rec {
     ++ optionals buildDevDoc [ gtk-doc file docbook_xsl ]
   ;
 
-  doCheck = true;
+  doCheck = !stdenv.isAarch32; # exec_opcodes_sys fails
 
   meta = with lib; {
     description = "The Oil Runtime Compiler";
