@@ -47,12 +47,14 @@ in
     };
 
     services.gnome3.gnome-keyring.enable = true;
+    hardware.opengl.enable = true;
 
     environment.systemPackages = [
+      oskItem
+      pkgs.gnome3.gnome-session
       pkgs.phoc
       pkgs.phosh
       pkgs.squeekboard
-      oskItem
     ];
   };
 
