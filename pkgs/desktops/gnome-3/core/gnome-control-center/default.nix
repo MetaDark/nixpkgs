@@ -167,6 +167,8 @@ stdenv.mkDerivation rec {
       url = "https://gitlab.gnome.org/GNOME/gnome-control-center/-/commit/27e1140c9d4ad852b4dc6a132a14cd5532d52997.patch";
       sha256 = "nU3szjKfXpRek8hhsxiCJNgMeDeIRK3QVo82D9R+kL4=";
     })
+
+    ./remove-online-accounts.patch
   ];
 
   postPatch = ''

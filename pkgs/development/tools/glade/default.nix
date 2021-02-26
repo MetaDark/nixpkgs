@@ -48,13 +48,17 @@ stdenv.mkDerivation rec {
     gtk3
     glib
     gjs
-    webkitgtk
+    # webkitgtk
     libxml2
     python3
     python3.pkgs.pygobject3
     gsettings-desktop-schemas
     gdk-pixbuf
     gnome3.adwaita-icon-theme
+  ];
+
+  mesonFlags = [
+    "-Dwebkit2gtk=disabled" # webkitgtk2 runs out of resources compiling on my phone, and fails in qemu
   ];
 
   passthru = {

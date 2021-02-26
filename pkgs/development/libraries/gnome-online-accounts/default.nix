@@ -41,14 +41,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NRGab/CMJxe31rr20+5wYZF2rOzoSNdztfNVojBd5ag=";
   };
 
-  outputs = [ "out" "man" "dev" "devdoc" ];
+  outputs = [ "out" # "man"
+              "dev" # "devdoc"
+            ];
 
   mesonFlags = [
     "-Dfedora=false" # not useful in NixOS or for NixOS users.
-    "-Dgtk_doc=true"
+    "-Dgtk_doc=true" # huh?
     "-Dlastfm=true"
-    "-Dman=true"
+    "-Dman=true" # huh?
     "-Dmedia_server=true"
+    "-Dgoabackend=false" # webkitgtk2 runs out of resources compiling on my phone, and fails in qemu
   ];
 
   nativeBuildInputs = [
@@ -79,7 +82,7 @@ stdenv.mkDerivation rec {
     librest
     libsecret
     libsoup
-    webkitgtk
+    # webkitgtk
   ];
 
   NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";

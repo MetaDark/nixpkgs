@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     glib libsoup libxml2 gtk3 gnome-online-accounts
     gcr p11-kit libgweather libgdata libaccounts-glib json-glib
-    icu sqlite kerberos openldap webkitgtk glib-networking
+    icu sqlite kerberos openldap # webkitgtk
+    glib-networking
     libcanberra-gtk3 pcre
   ];
 
@@ -46,6 +47,7 @@ stdenv.mkDerivation rec {
     "-DENABLE_INTROSPECTION=ON"
     "-DCMAKE_SKIP_BUILD_RPATH=OFF"
     "-DINCLUDE_INSTALL_DIR=${placeholder "dev"}/include"
+    "-DENABLE_OAUTH2=OFF" # webkitgtk2 runs out of resources compiling on my phone, and fails in qemu
   ];
 
   passthru = {
