@@ -79,6 +79,11 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
+  # ../../build-aux/test-driver: line 109:  1547 Aborted                 (core dumped) "$@" > $log_file 2>&1
+  # FAIL: udisks-test
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A daemon, tools and libraries to access and manipulate disks, storage devices and technologies";
     homepage = "https://www.freedesktop.org/wiki/Software/udisks/";

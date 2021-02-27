@@ -89,6 +89,10 @@ stdenv.mkDerivation rec {
     runHook postInstallCheck
   '';
 
+  # FAILED: src/libical/ICal-3.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://github.com/libical/libical";
     description = "An Open Source implementation of the iCalendar protocols";

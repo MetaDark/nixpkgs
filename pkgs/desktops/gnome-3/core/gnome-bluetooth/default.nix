@@ -42,6 +42,10 @@ in stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: lib/GnomeBluetooth-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://help.gnome.org/users/gnome-bluetooth/stable/index.html.en";
     description = "Application that let you manage Bluetooth in the GNOME destkop";

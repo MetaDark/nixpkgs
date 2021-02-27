@@ -65,6 +65,14 @@ stdenv.mkDerivation rec {
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
+  # not ok 352 - udp_no_autobind
+  # # exit code 134
+  # # Output from process `udp_no_autobind`:
+  # # Assertion failed in test/test-udp-options.c on line 135: UV_EBADF == uv_udp_set_multicast_interface(&h, "0.0.0.0")
+  # # qemu: uncaught target signal 6 (Aborted) - core dumped
+  requiredSystemFeatures = lib.optional (stdenv.buildPlatform.system == "armv7l-linux" && stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A multi-platform support library with a focus on asynchronous I/O";
     homepage    = "https://libuv.org/";

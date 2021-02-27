@@ -131,6 +131,10 @@ stdenv.mkDerivation (rec {
     rm -r "$out/share"
   '';
 
+  # Tests fail
+  requiredSystemFeatures = lib.optional (stdenv.buildPlatform.system == "armv7l-linux" && stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = {
     homepage = "https://www.gnu.org/software/coreutils/";
     description = "The basic file, shell and text manipulation utilities of the GNU operating system";

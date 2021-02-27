@@ -50,6 +50,10 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
+  # FAILED: libcolord-gtk/ColordGtk-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://www.freedesktop.org/software/colord/intro.html";
     license = licenses.lgpl21Plus;

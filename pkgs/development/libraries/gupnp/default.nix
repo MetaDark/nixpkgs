@@ -85,6 +85,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: libgupnp/GUPnP-1.2.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "http://www.gupnp.org/";
     description = "An implementation of the UPnP specification";

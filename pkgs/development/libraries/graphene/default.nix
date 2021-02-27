@@ -69,6 +69,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: src/Graphene-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A thin layer of graphic data types";
     homepage = "https://ebassi.github.com/graphene";

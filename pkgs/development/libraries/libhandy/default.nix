@@ -79,6 +79,10 @@ stdenv.mkDerivation rec {
       meson test --print-errorlogs
   '';
 
+  # FAILED: src/Handy-1.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     changelog = "https://gitlab.gnome.org/GNOME/libhandy/-/tags/${version}";
     description = "Building blocks for modern adaptive GNOME apps";

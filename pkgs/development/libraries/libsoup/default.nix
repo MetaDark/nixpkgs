@@ -51,6 +51,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: libsoup/Soup-2.4.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = {
     description = "HTTP client/server library for GNOME";
     homepage = "https://wiki.gnome.org/Projects/libsoup";

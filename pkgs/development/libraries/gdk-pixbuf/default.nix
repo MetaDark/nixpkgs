@@ -124,6 +124,10 @@ stdenv.mkDerivation rec {
     moduleDir = "lib/gdk-pixbuf-2.0/2.10.0/loaders";
   };
 
+  # FAILED: gdk-pixbuf/GdkPixbuf-2.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A library for image loading and manipulation";
     homepage = "https://gitlab.gnome.org/GNOME/gdk-pixbuf";

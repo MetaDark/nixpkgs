@@ -200,6 +200,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: subprojects/gvc/Gvc-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Core user interface for the GNOME 3 desktop";
     homepage = "https://wiki.gnome.org/Projects/GnomeShell";

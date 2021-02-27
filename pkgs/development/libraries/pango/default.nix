@@ -59,6 +59,10 @@ in stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: pango/Pango-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A library for laying out and rendering of text, with an emphasis on internationalization";
 

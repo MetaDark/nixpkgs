@@ -87,6 +87,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: gck/Gck-1.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     platforms = platforms.linux;
     maintainers = teams.gnome.members;

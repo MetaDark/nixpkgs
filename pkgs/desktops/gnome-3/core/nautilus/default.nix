@@ -104,6 +104,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: libnautilus-extension/Nautilus-3.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "The file manager for GNOME";
     homepage = "https://wiki.gnome.org/Apps/Files";

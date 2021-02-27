@@ -298,6 +298,11 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # fails 20 out of 58 tests, expensive
 
+  # FAILED: gst-libs/gst/basecamerabinsrc/GstBadBaseCameraBin-1.0.gir
+  # FAILED: gst-libs/gst/audio/GstBadAudio-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "GStreamer Bad Plugins";
     homepage = "https://gstreamer.freedesktop.org";

@@ -34,6 +34,11 @@ buildPythonPackage rec {
     chmod a-x $out/share/pygobject/*/codegen/*.py
   '';
 
+  # FAILED: tests/Regress-1.0.gir
+  # FAILED: tests/GIMarshallingTests-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://pygobject.readthedocs.io/";
     description = "Python bindings for GLib";

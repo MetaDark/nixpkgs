@@ -68,6 +68,12 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
+  # FAIL: libpsl_idn2_fuzzer
+  # FAIL: libpsl_idn2_load_dafsa_fuzzer
+  # FAIL: libpsl_idn2_load_fuzzer
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "C library for the Publix Suffix List";
     longDescription = ''

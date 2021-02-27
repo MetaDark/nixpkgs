@@ -133,6 +133,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: src/libtracker-sparql/Tracker-3.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Tracker";
     description = "Desktop-neutral user information store, search tool and indexer";

@@ -34,6 +34,10 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # tests try to access USB
 
+  # FAILED: gusb/GUsb-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "GLib libusb wrapper";
     homepage = "https://github.com/hughsie/libgusb";

@@ -43,6 +43,11 @@ stdenv.mkDerivation rec {
       ${lib.makeBinPath [ thin-provisioning-tools ]}
   '';
 
+  # ERROR: can't resolve libraries to shared libraries: bd_utils
+  # make[3]: *** [/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gobject-introspection-1.66.1-dev/share/gobject-introspection-1.0/Makefile.introspection:156: BlockDev-2.0.gir] Error 1
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A library for manipulating block devices";
     homepage = "http://storaged.org/libblockdev/";

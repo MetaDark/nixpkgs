@@ -200,6 +200,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: gdk/Gdk-3.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A multi-platform toolkit for creating graphical user interfaces";
     longDescription = ''

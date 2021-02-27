@@ -144,6 +144,10 @@ stdenv.mkDerivation rec {
     waylandEnabled = enableWayland;
   };
 
+  # FAILED: gst-libs/gst/tag/GstTag-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Base GStreamer plug-ins and helper libraries";
     homepage = "https://gstreamer.freedesktop.org";

@@ -44,6 +44,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: libgnome-desktop/GnomeDesktop-3.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Library with common API for various GNOME modules";
     license = with licenses; [ gpl2 lgpl2 ];

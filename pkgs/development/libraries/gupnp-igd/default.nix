@@ -59,6 +59,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAIL gupnp-simple-igd (exit status: 133)
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Library to handle UPnP IGD port mapping";
     homepage = "http://www.gupnp.org/";

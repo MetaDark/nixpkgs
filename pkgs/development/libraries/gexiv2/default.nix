@@ -27,6 +27,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: gexiv2/GExiv2-0.10.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/gexiv2";
     description = "GObject wrapper around the Exiv2 photo metadata library";

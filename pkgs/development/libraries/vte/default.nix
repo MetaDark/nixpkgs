@@ -80,6 +80,10 @@ stdenv.mkDerivation rec {
     patchShebangs src/box_drawing_generate.sh
   '';
 
+  # FAILED: bindings/gir/Vte-2.91.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://www.gnome.org/";
     description = "A library implementing a terminal emulator widget for GTK";

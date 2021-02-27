@@ -39,6 +39,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: atk/Atk-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = {
     description = "Accessibility toolkit";
 

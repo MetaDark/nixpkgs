@@ -104,6 +104,10 @@ stdenv.mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
+  # FAILED: gst/Gst-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib ;{
     description = "Open source multimedia framework";
     homepage = "https://gstreamer.freedesktop.org";

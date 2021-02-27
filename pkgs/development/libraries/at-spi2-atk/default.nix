@@ -34,6 +34,12 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # In file included from /build/aom/av1/common/arm/av1_txfm_neon.c:12:
+  # /nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gcc-10.2.0/lib/gcc/armv7l-unknown-linux-gnueabihf/10.2.0/include/arm_neon.h:10373:1: error: inlining failed in call to 'always_inline' 'vld1q_s32': target specific option mismatch
+  # 10373 | vld1q_s32 (const int32_t * __a)
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "D-Bus bridge for Assistive Technology Service Provider Interface (AT-SPI) and Accessibility Toolkit (ATK)";
     homepage = "https://gitlab.gnome.org/GNOME/at-spi2-atk";

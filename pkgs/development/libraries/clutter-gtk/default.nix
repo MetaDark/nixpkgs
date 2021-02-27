@@ -27,6 +27,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: clutter-gtk/GtkClutter-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = {
     description = "Clutter-GTK";
     homepage = "http://www.clutter-project.org/";

@@ -20,6 +20,12 @@ stdenv.mkDerivation {
 
   doCheck = !stdenv.isi686 && !stdenv.isAarch32; # test_unit_LPC_inv_pred_gain fails
 
+
+  # ./test-driver: line 107:  8290 Aborted                 (core dumped) "$@" > $log_file 2>&1
+  # FAIL: silk/tests/test_unit_LPC_inv_pred_gain
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Open, royalty-free, highly versatile audio codec";
     license = lib.licenses.bsd3;

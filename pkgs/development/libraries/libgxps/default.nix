@@ -26,6 +26,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: libgxps/GXPS-0.1.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A GObject based library for handling and rendering XPS documents";
     homepage = "https://wiki.gnome.org/Projects/libgxps";

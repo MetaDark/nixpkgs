@@ -74,6 +74,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
+  # FAILED: osinfo/Libosinfo-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "GObject based library API for managing information about operating systems, hypervisors and the (virtual) hardware devices they can support";
     homepage = "https://libosinfo.org/";

@@ -197,6 +197,11 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: shell/gnome-control-center
+  # FAILED: tests/network/test-wifi-panel-text
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Utilities to configure the GNOME desktop";
     license = licenses.gpl2Plus;

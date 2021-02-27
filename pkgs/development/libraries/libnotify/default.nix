@@ -50,6 +50,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: libnotify/Notify-0.7.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://developer.gnome.org/notification-spec/";
     description = "A library that sends desktop notifications to a notification daemon";

@@ -33,6 +33,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: libmediaart/MediaArt-2.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Library tasked with managing, extracting and handling media art caches";
     maintainers = teams.gnome.members;

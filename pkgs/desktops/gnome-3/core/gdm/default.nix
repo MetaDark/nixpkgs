@@ -167,6 +167,10 @@ stdenv.mkDerivation rec {
     initialVT = "7";
   };
 
+  # FAILED: libgdm/Gdm-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A program that manages graphical display servers and handles graphical user logins";
     homepage = "https://wiki.gnome.org/Projects/GDM";

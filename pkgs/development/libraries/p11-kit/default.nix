@@ -49,6 +49,10 @@ stdenv.mkDerivation rec {
     "exampledir=${placeholder "out"}/etc/pkcs11"
   ];
 
+  # Hangs after checkPhase
+  requiredSystemFeatures = lib.optional (stdenv.buildPlatform.system == "armv7l-linux" && stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Library for loading and sharing PKCS#11 modules";
     longDescription = ''

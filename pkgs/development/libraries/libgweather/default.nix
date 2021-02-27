@@ -32,6 +32,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: libgweather/GWeather-3.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A library to access weather information from online services for numerous locations";
     homepage = "https://wiki.gnome.org/Projects/LibGWeather";

@@ -56,6 +56,10 @@ stdenv.mkDerivation rec {
     patchShebangs demo/install-file.py
   '';
 
+  # FAILED: libgeoclue/Geoclue-2.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Geolocation framework and some data providers";
     homepage = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home";

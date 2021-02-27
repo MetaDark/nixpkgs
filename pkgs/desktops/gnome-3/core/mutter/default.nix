@@ -146,6 +146,10 @@ let self = stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: cogl/cogl/Cogl-7.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A window manager for GNOME";
     homepage = "https://gitlab.gnome.org/GNOME/mutter";

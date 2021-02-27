@@ -18,6 +18,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkg-config gettext gobject-introspection ];
   buildInputs = [ libxml2 ];
 
+  # FAILED: plparse/TotemPlParser-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Videos";
     description = "Simple GObject-based library to parse and save a host of playlist formats";

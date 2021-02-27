@@ -27,6 +27,15 @@ in stdenv.mkDerivation rec {
 
   doCheck = !stdenv.isAarch32; # exec_opcodes_sys fails
 
+  # 2/13 test-schro       FAIL           0.40s (killed by signal 11 SIGSEGV)
+  # 3/13 exec_opcodes_sys FAIL           0.36s (killed by signal 11 SIGSEGV)
+  # 4/13 exec_parse       FAIL           0.33s (killed by signal 11 SIGSEGV)
+  # 5/13 perf_opcodes_sys FAIL           0.44s (killed by signal 11 SIGSEGV)
+  # 6/13 perf_parse       FAIL           0.49s (killed by signal 11 SIGSEGV)
+  # 11/13 orc_test        FAIL           0.75s (killed by signal 11 SIGSEGV)
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "The Oil Runtime Compiler";
     homepage = "https://gstreamer.freedesktop.org/projects/orc.html";

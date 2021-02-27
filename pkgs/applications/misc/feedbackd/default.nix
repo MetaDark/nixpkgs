@@ -41,6 +41,10 @@ stdenv.mkDerivation rec {
     json-glib
   ];
 
+  # FAILED: libfeedback/Lfb-0.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A daemon to provide haptic (and later more) feedback on events";
     homepage = "https://source.puri.sm/Librem5/feedbackd";
@@ -49,4 +53,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

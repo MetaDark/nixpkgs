@@ -67,6 +67,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: gladeui/Gladeui-2.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Glade";
     description = "User interface designer for GTK applications";

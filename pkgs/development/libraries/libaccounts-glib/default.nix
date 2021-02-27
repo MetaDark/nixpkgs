@@ -44,6 +44,10 @@ stdenv.mkDerivation rec {
     "-Dpy-overrides-dir=${placeholder "py"}/${python3.sitePackages}/gi/overrides"
   ];
 
+  # FAILED: libaccounts-glib/Accounts-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Library for managing accounts which can be used from GLib applications";
     platforms = platforms.linux;

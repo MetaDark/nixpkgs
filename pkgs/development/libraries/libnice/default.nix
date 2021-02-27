@@ -69,6 +69,10 @@ stdenv.mkDerivation rec {
   # see https://github.com/NixOS/nixpkgs/pull/53293#issuecomment-453739295
   doCheck = false;
 
+  # FAILED: nice/Nice-0.1.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "GLib ICE implementation";
     longDescription = ''

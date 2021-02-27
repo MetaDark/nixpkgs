@@ -56,6 +56,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: src/camel/Camel-1.2.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "Unified backend for programs that work with contacts, tasks, and calendar information";
     homepage = "https://wiki.gnome.org/Apps/Evolution";

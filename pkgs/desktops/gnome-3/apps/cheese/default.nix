@@ -107,6 +107,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
+  # FAILED: libcheese/Cheese-3.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Cheese";
     description = "Take photos and videos with your webcam, with fun graphical effects";

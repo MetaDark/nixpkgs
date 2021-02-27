@@ -35,6 +35,10 @@ in stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: src/Grl-0.3.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Grilo";
     description = "Framework that provides access to various sources of multimedia content, using a pluggable system";

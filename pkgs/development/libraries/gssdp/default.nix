@@ -57,6 +57,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: libgssdp/GSSDP-1.2.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "GObject-based API for handling resource discovery and announcement over SSDP";
     homepage = "http://www.gupnp.org/";

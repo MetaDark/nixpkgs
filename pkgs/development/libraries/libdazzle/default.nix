@@ -34,6 +34,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: src/Dazzle-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A library to delight your users with fancy features";
     longDescription = ''

@@ -84,6 +84,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
+  # FAILED: src/libaccountsservice/AccountsService-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "D-Bus interface for user account query and manipulation";
     homepage = "https://www.freedesktop.org/wiki/Software/AccountsService";

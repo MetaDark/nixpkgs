@@ -173,6 +173,10 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
+  # FAILED: JavaScriptCore-4.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = {
     description = "Web content rendering engine, GTK port";
     homepage = "https://webkitgtk.org/";

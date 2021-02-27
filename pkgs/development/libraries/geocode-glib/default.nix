@@ -28,6 +28,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: geocode-glib/GeocodeGlib-1.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "A convenience library for the geocoding and reverse geocoding using Nominatim service";
     license = licenses.lgpl2Plus;

@@ -76,6 +76,10 @@ stdenv.mkDerivation rec {
     };
   };
 
+  # FAILED: gdata/GData-0.0.gir
+  requiredSystemFeatures = lib.optional (stdenv.hostPlatform.system == "armv7l-linux")
+    [ "gccarch-armv7-a" ];
+
   meta = with lib; {
     description = "GData API library";
     homepage = "https://wiki.gnome.org/Projects/libgdata";
