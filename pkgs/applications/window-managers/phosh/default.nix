@@ -128,9 +128,11 @@ in stdenv.mkDerivation rec {
     ];
   };
 
+  # Depends on GSettings schemas in gnome-shell
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${pkgs.gnome3.gnome-session}/bin"
+      --prefix XDG_DATA_DIRS : "${pkgs.gnome3.gnome-shell}/share/gsettings-schemas/${pkgs.gnome3.gnome-shell.name}"
     )
   '';
 
