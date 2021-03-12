@@ -94,7 +94,7 @@ in stdenv.mkDerivation rec {
     xvfb_run
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   postUnpack = ''
     rmdir $sourceRoot/subprojects/gvc
