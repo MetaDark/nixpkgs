@@ -18,7 +18,16 @@
 , wlroots
 }:
 
-stdenv.mkDerivation rec {
+let
+  # See upstream report and fix in Alpine
+  # - https://source.puri.sm/Librem5/phosh/-/issues/422
+  # - https://gitlab.alpinelinux.org/alpine/aports/-/merge_requests/14522
+  phocWlroots = wlroots.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [
+      ./0001-Revert-layer-shell-error-on-0-dimension-without-anch.patch
+    ];
+  });
+in stdenv.mkDerivation rec {
   pname = "phoc";
   version = "0.6.0";
 
@@ -48,7 +57,7 @@ stdenv.mkDerivation rec {
     # For keybindings settings schemas
     gnome3.mutter
     wayland
-    wlroots
+    phocWlroots
   ];
 
   mesonFlags = ["-Dembed-wlroots=disabled"];
