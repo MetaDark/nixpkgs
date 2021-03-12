@@ -55,10 +55,14 @@ rustPlatform.buildRustPackage rec {
     feedbackd
   ];
 
-  cargoSha256 = "00gzw703w16i81yna4winj7gi4w7a1p986ggnx48jvyi0c14mxx0";
+  cargoSha256 = "0ficb6ld91m7mxwg979n5h924ml6apx0ggvhazl12jnpbnfwq0jw";
 
-  preUnpack = ''
+  cargoUpdateHook = ''
     cat Cargo.toml.in Cargo.deps > Cargo.toml
+  '';
+
+  preBuild = ''
+    cat Cargo.toml.base ../Cargo.deps > ../Cargo.toml
   '';
 
   # Don't use buildRustPackage phases, only use it for rust deps setup

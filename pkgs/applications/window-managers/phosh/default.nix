@@ -128,6 +128,12 @@ in stdenv.mkDerivation rec {
     ];
   };
 
+  preFixup = ''
+    gappsWrapperArgs+=(
+      --prefix PATH : "${pkgs.gnome3.gnome-session}/bin"
+    )
+  '';
+
   meta = with lib; {
     description = "A pure Wayland shell prototype for GNOME on mobile devices";
     homepage = "https://source.puri.sm/Librem5/phosh";
