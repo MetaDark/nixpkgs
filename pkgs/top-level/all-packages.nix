@@ -29125,6 +29125,8 @@ in
 
   keynav = callPackage ../tools/X11/keynav { };
 
+  kgx = callPackage ../applications/terminal-emulators/kgx { };
+
   kmon = callPackage ../tools/system/kmon { };
 
   kompose = callPackage ../applications/networking/cluster/kompose { };

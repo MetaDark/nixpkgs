@@ -1,0 +1,13 @@
+diff --git a/nautilus/meson.build b/nautilus/meson.build
+index 49ea3a2..dc30a67 100644
+--- a/nautilus/meson.build
++++ b/nautilus/meson.build
+@@ -7,7 +7,7 @@ nautilus_sources = [
+ ]
+ 
+ nautilus_extension = shared_library('kgx-nautilus', nautilus_sources,
+-                                     dependencies: [nautilus_dep],
++                                     dependencies: [nautilus_dep, dependency('gio-unix-2.0')],
+                               include_directories: kgx_inc,
+                                           install: true,
+                                       install_dir: libdir / 'nautilus' / 'extensions-3.0')
