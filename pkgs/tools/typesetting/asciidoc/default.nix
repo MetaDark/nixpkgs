@@ -39,7 +39,7 @@
 , enableOdfBackend ? false
 
 # java is problematic on some platforms, where it is unfree
-, enableJava ? true
+, enableJava ? !stdenv.isAarch32
 }:
 
 assert enableStandardFeatures ->
