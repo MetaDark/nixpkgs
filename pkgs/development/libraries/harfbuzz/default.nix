@@ -69,7 +69,7 @@ stdenv.mkDerivation {
     ++ optional withGraphite2 graphite2
     ++ optionals withIcu [ icu harfbuzz ];
 
-  doCheck = true;
+  doCheck = !stdenv.isAarch32; # 66/348 harfbuzz:fuzzing+slow / shape_fuzzer TIMEOUT 60.14s
 
   # Slightly hacky; some pkgs expect them in a single directory.
   postFixup = optionalString withIcu ''
