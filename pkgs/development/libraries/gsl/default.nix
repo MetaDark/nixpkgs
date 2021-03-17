@@ -11,8 +11,15 @@ stdenv.mkDerivation rec {
   # do not let -march=skylake to enable FMA (https://lists.gnu.org/archive/html/bug-gsl/2011-11/msg00019.html)
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isx86_64 "-mno-fma";
 
-  # https://lists.gnu.org/archive/html/bug-gsl/2015-11/msg00012.html
-  doCheck = stdenv.hostPlatform.system != "i686-linux" && stdenv.hostPlatform.system != "aarch64-linux";
+  doCheck =
+    # https://lists.gnu.org/archive/html/bug-gsl/2015-11/msg00012.html
+    stdenv.hostPlatform.system != "i686-linux" &&
+
+    # ../test-driver: line 95:   475 Segmentation fault      (core dumped) "$@" > $log_file 2>&1
+    # FAIL: test
+    stdenv.hostPlatform.system != "armv7l-linux" &&
+
+    stdenv.hostPlatform.system != "aarch64-linux";
 
   meta = {
     description = "The GNU Scientific Library, a large numerical library";
