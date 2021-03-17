@@ -12,6 +12,12 @@ stdenv.mkDerivation rec {
     sha256 = "0has1yd1ns5q5jgcmhrbgwhbwq0wix3p7xv3dyrwdf784p56izkn";
   };
 
+  patches = [
+    # double-poll-crash.c:153:11: error: '__NR_mmap' undeclared (first use in this function)
+    #   153 |   syscall(__NR_mmap, 0x1ffff000ul, 0x1000ul, 0ul, 0x32ul, -1, 0ul);
+    ./disable-double-poll-crash-test.patch
+  ];
+
   separateDebugInfo = true;
   enableParallelBuilding = true;
   # Upstream's configure script is not autoconf generated, but a hand written one.
