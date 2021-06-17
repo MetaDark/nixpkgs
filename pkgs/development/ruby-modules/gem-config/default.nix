@@ -369,6 +369,13 @@ in
     # The ruby build script takes care of this
     dontUseCmakeConfigure = true;
 
+    # Fix building without XCode on Darwin
+    dontBuild = false;
+    postPatch = ''
+      substituteInPlace ext/mathematical/extconf.rb \
+        --replace '`/usr/bin/xcrun --show-sdk-path`' '""'
+    '';
+
     postInstall = ''
       # Reduce output size by a lot, and remove some unnecessary references.
       # The ext directory should only be required at build time, so
