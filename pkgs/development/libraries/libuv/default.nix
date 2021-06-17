@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, pkg-config, ApplicationServices, CoreServices }:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, autoconf, automake, libtool, pkg-config, ApplicationServices, CoreServices }:
 
 stdenv.mkDerivation rec {
   version = "1.41.0";
@@ -10,6 +10,21 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-i6AYD1Ony0L2+3yWK6bxOfwoZEvd9qCg33QSqA7bRXI=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/libuv/libuv/commit/054a4953519c81247bf8a8d19e6ce14aa5df914e.patch";
+      sha256 = "nD3m3+tXTPrSgWVh4y23zxm5ZfYuHnUqlZ+p1TbwNGI=";
+    })
+    (fetchpatch {
+      url = "https://github.com/libuv/libuv/commit/608ac2e4336275fb97e67abf0c51c7d4ecfa9994.patch";
+      sha256 = "H7N6s7H1t0gTn9ga8tgOZUEMFW3LyB0e8+4rI3kKS2U=";
+    })
+    (fetchpatch {
+      url = "https://github.com/libuv/libuv/commit/3e76e47304aa4cf1cdf4cfe3368146699ccc6178.patch";
+      sha256 = "xb9wwW0uN3tBujTNO0pFa1DC5+Te7QzZAjuAHLOUeN8=";
+    })
+  ];
 
   postPatch = let
     toDisable = [
